@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication System</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 8px; }
+        button { padding: 10px 20px; background: #007BFF; color: white; border: none; cursor: pointer; }
+        .tabs { margin-bottom: 20px; }
+        .tab { padding: 10px; cursor: pointer; display: inline-block; }
+        .tab.active { background: #ddd; }
+        .content { display: none; }
+        .content.active { display: block; }
+    </style>
+</head>
+<body>
+    <h2>Authentication System</h2>
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('login')">Login</div>
+        <div class="tab" onclick="showTab('create')">Create User</div>
+        <div class="tab" onclick="showTab('validate')">Validate</div>
+    </div>
+
+    <div id="login" class="content active">
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginUsername">Username:</label>
+                <input type="text" id="loginUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password:</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="button" onclick="handleLogin()">Login</button>
+        </form>
+    </div>
+
+    <div id="create" class="content">
+        <form id="createForm">
+            <div class="form-group">
+                <label for="createUsername">Username:</label>
+                <input type="text" id="createUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="createEmail">Email:</label>
+                <input type="email" id="createEmail" required>
+            </div>
+            <div class="form-group">
+                <label for="createPassword">Password:</label>
+                <input type="password" id="createPassword" required>
+            </div>
+            <button type="button" onclick="handleCreate()">Create</button>
+        </form>
+    </div>
+
+    <div id="validate" class="content">
+        <form id="validateForm">
+            <div class="form-group">
+                <label for="validateUsername">Username:</label>
+                <input type="text" id="validateUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="validatePassword">Password:</label>
+                <input type="password" id="validatePassword" required>
+            </div>
+            <button type="button" onclick="handleValidate()">Validate</button>
+        </form>
+    </div>
+
+    <p id="response"></p>
+
+    <script>
+        const apiUrl = 'https://71kmmt12q6.execute-api.us-east-1.amazonaws.com/test-tdd-2'; // Replace with your API Gateway URL
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        async function handleLogin() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const responseElement = document.getElementById('response');
+            try {
+                const response = await fetch(`${apiUrl}/Login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                responseElement.textContent = JSON.stringify(data);
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function handleCreate() {
+            const username = document.getElementById('createUsername').value;
+            const email = document.getElementById('createEmail').value;
+            const password = document.getElementById('createPassword').value;
+            const responseElement = document.getElementById('response');
+            try {
+                const response = await fetch(`${apiUrl}/Users`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                const data = await response.json();
+                responseElement.textContent = JSON.stringify(data);
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        async function handleValidate() {
+            const username = document.getElementById('validateUsername').value;
+            const password = document.getElementById('validatePassword').value;
+            const responseElement = document.getElementById('response');
+            try {
+                const response = await fetch(`${apiUrl}/Users/Validate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                responseElement.textContent = JSON.stringify(data);
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
