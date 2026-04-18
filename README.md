@@ -154,28 +154,28 @@ All endpoints were tested via Postman against the deployed API Gateway. Screensh
 ### Login Endpoint
 `POST /Login` — Returns a JWT token on valid credentials (200 OK, ~1.36s response).
 
-![Login Test](postman-screenshots/postman-login-test.png)
+![Login Test](postman-screenshots/postman-login-test-highlighted-v2.png)
 
 ---
 
 ### Create User Endpoint
 `POST /Users` — Creates a new user in the system.
 
-![Users Page Test](postman-screenshots/postman-users-page-test.png)
+![Users Page Test](postman-screenshots/postman-users-page-test-highlighted-v2.png)
 
 ---
 
 ### Validate Endpoint
 `POST /Users/Validate` — Validates credentials.
 
-![Validate Page Test](postman-screenshots/postman-validate-page-test.png)
+![Validate Page Test](postman-screenshots/postman-validate-page-test-highlighted-v2.png)
 
 ---
 
 ### Load Test
 Performance test verifying the API handles concurrent requests reliably.
 
-![Load Test](postman-screenshots/postman-load-test.png)
+![Load Test](postman-screenshots/postman-load-test-highlighted-v2.png)
 
 ---
 
@@ -223,10 +223,10 @@ JWT_AWS_lambda_auth/
 ├── implementation/
 │   └── imple.html              # Frontend HTML UI (Login / Create / Validate)
 ├── postman-screenshots/
-│   ├── postman-login-test.png          # POST /Login — 200 OK with JWT token
-│   ├── postman-users-page-test.png     # POST /Users — user creation
-│   ├── postman-validate-page-test.png  # POST /Users/Validate — credential check
-│   └── postman-load-test.png           # Load/performance test results
+│   ├── postman-login-test-highlighted-v2.png          # POST /Login — 200 OK with JWT token
+│   ├── postman-users-page-test-highlighted-v2.png     # POST /Users — user creation
+│   ├── postman-validate-page-test-highlighted-v2.png  # POST /Users/Validate — credential check
+│   └── postman-load-test-highlighted-v2.png           # Load/performance test results
 └── README.md
 ```
 
